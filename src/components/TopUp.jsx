@@ -1,15 +1,14 @@
 // src/components/TopUp.jsx
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { topUp } from "../redux/balance/BalanceSlice";
+import { topUp } from "../redux/balance/balanceSlice";
 import { useNavigate } from "react-router-dom";
 import NavbarPages from "../pages/NavbarPages";
-import Dashboard from "./Dashboard";
 
 function TopUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { saldo, status } = useSelector((state) => state.balance);
+  const { status } = useSelector((state) => state.balance);
 
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");

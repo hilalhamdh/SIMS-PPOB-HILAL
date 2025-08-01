@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { pay } from "../redux/transaksi/TransaksiSlice";
-import { kurangiSaldo } from "../redux/balance/BalanceSlice";
+import { pay } from "../redux/transaksi/transaksiSlicee";
+import { kurangiSaldo } from "../redux/balance/balanceSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavbarPages from "../pages/NavbarPages";
 import { fetchHistory } from "../redux/transaksi/transaksiHistorySlice"; // pastikan import ini ada

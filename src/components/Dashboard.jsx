@@ -1,7 +1,7 @@
 // src/components/Dashboard.jsx
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBalance } from "../redux/balance/BalanceSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchBalance } from "../redux/balance/balanceSlice";
 import { fetchProfile } from "../redux/profile/profileSlice";
 import { useNavigate } from "react-router-dom";
 import NavbarPages from "../pages/NavbarPages";

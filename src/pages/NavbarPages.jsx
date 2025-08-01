@@ -1,7 +1,7 @@
 import Logo from "../assets/images/Logo.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBalance } from "../redux/balance/BalanceSlice";
+import { fetchBalance } from "../redux/balance/balanceSlice";
 import { fetchProfile } from "../redux/profile/profileSlice";
 import { useNavigate } from "react-router-dom";
 import defaultProfile from "../assets/images/profile.png";

@@ -34,7 +34,7 @@ const initialState = {
   hasMore: true,
 };
 
-const transaksiSlicer = createSlice({
+const transaksiSlicerr = createSlice({
   name: "transaksiHistory",
   initialState,
   reducers: {
@@ -77,5 +77,5 @@ const transaksiSlicer = createSlice({
   },
 });
 
-export const { resetHistory } = transaksiSlicer.actions;
-export default transaksiSlicer.reducer;
+export const { resetHistory } = transaksiSlicerr.actions;
+export default transaksiSlicerr.reducer;
