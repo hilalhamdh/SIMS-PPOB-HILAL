@@ -1,8 +1,8 @@
-// src/redux/balance/balanceSlice.js
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Helper: ambil token dan siapkan header
+
 const authHeaders = () => {
   const token = localStorage.getItem('token');
   return {
@@ -13,7 +13,7 @@ const authHeaders = () => {
   };
 };
 
-// Async thunk: fetch saldo
+
 export const fetchBalance = createAsyncThunk('balance/fetch', async (_, { rejectWithValue }) => {
   try {
     const res = await axios.get('https://take-home-test-api.nutech-integrasi.com/balance', authHeaders());

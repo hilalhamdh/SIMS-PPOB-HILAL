@@ -1,8 +1,8 @@
-// src/redux/auth/authSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
-// Thunk login
+
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
@@ -50,7 +50,7 @@ export const register = createAsyncThunk(
         throw new Error(data.message || 'Registrasi gagal');
       }
 
-      return await res.json(); // return data jika berhasil
+      return await res.json(); 
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -87,13 +87,13 @@ const authSlice = createSlice({
       })
     .addCase(register.fulfilled, (state) => {
   state.status = 'register_success';
-  state.token = null;          // Reset token setelah register berhasil
-  localStorage.removeItem('token');  // Hapus token di localStorage
+  state.token = null;          
+  localStorage.removeItem('token');  
 })
 .addCase(register.rejected, (state, action) => {
   state.status = 'register_failed';
   state.error = action.payload;
-  state.token = null;          // Reset token jika register gagal juga, untuk keamanan
+  state.token = null;         
   localStorage.removeItem('token');
 })
 

@@ -1,4 +1,4 @@
-// features/transaksi/transaksiSlice.js
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import axios
@@ -16,7 +16,7 @@ export const fetchHistory = createAsyncThunk(
         return rejectWithValue(res.data.message || 'Gagal mengambil data history');
       }
 
-      return res.data.data.records; // penting: gunakan .records
+      return res.data.data.records; 
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
     }
@@ -75,7 +75,7 @@ const transaksiSlicee = createSlice({
         state.error = action.payload;
       })
       .addCase(pay.fulfilled, (state, action) => {
-        // Optional: tambahkan transaksi baru ke list history (jika ingin)
+    
         state.list.unshift(action.payload);
       });
   },

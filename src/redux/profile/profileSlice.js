@@ -77,7 +77,7 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-// Slice
+
 const profileSlice = createSlice({
   name: 'profile',
   initialState: {
@@ -126,7 +126,7 @@ const profileSlice = createSlice({
         state.updateError = action.payload;
       })
 
-      // Update profile image
+   
       .addCase(updateProfileImage.pending, (state) => {
         state.imageUploadStatus = 'loading';
         state.imageUploadError = null;

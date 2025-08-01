@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchBalance } from "../redux/balance/balanceSlice";
 import { fetchProfile } from "../redux/profile/profileSlice";
-import { useNavigate } from "react-router-dom";
+
 import NavbarPages from "../pages/NavbarPages";
 
 import ServiceList from "../pages/ServiceList";
@@ -11,7 +11,6 @@ import BannerList from "../pages/BannerList";
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProfile());

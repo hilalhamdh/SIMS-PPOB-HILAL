@@ -11,7 +11,6 @@ function Profile() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const { data, status, error } = useSelector((state) => state.profile);
-  const [uploadError, setUploadError] = useState("");
 
   useEffect(() => {
     dispatch(fetchProfile());
@@ -46,7 +45,7 @@ function Profile() {
   };
 
   const handleEditProfile = () => {
-    navigate("/editprofile"); // arahkan ke halaman edit profile
+    navigate("/editprofile");
   };
 
   if (status === "loading") return <p>Loading profile...</p>;

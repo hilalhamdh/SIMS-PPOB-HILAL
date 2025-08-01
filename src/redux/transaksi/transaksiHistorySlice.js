@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// --- Jika backend beda origin, pastikan baseURL di-set ---
-// axios.defaults.baseURL = "http://localhost:5000";
+
 
 export const fetchHistory = createAsyncThunk(
   "transaksiHistory/fetchHistory",
   async ({ offset, limit }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/history?offset=${offset}&limit=${limit}`);
-      console.log("✅ API Response:", response.data); // <-- DEBUG di console
+      console.log("✅ API Response:", response.data); 
 
       if (Array.isArray(response.data)) {
         return response.data;
@@ -27,8 +26,7 @@ export const fetchHistory = createAsyncThunk(
 
 const initialState = {
   list: [],
-  status: "idle", // idle | loading | succeeded | failed
-  error: null,
+  status: "idle", 
   offset: 0,
   limit: 5,
   hasMore: true,
