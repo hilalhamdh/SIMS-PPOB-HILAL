@@ -4,9 +4,9 @@ import profileReducer from "./profile/profileSlice";
 import balanceReducer from "./balance/balanceSlice";
 import transaksiReducer from "./transaksi/transaksiSlicee";
 import transaksiSlicer from "./transaksi/transaksiHistorySlice";
-import { loadState } from "./localStorage";
 
-const persistedState = loadState();
+
+
 
 
 export const store = configureStore({
@@ -22,12 +22,6 @@ export const store = configureStore({
       immutableCheck: false,
       serializableCheck: false,
     }),
-  preloadedState: {
-    transaksi: persistedState, // sesuai slice yang ingin dipersist
-  },
+ 
 });
 
-store.subscribe(() => {
-  const state = store.getState();
-  localStorage.setItem("transaksiState", JSON.stringify(state.transaksi));
-});
