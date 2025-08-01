@@ -8,6 +8,7 @@ import { loadState } from "./localStorage";
 
 const persistedState = loadState();
 
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,

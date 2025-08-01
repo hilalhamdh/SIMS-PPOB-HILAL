@@ -4,7 +4,7 @@ import { pay } from "../redux/transaksi/TransaksiSlice";
 import { kurangiSaldo } from "../redux/balance/BalanceSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavbarPages from "../pages/NavbarPages";
-
+import { fetchHistory } from "../redux/transaksi/transaksiHistorySlice"; // pastikan import ini ada
 function Payment() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,8 +47,10 @@ function Payment() {
       // ✅ Kurangi saldo lokal
       dispatch(kurangiSaldo(parseInt(nominal)));
 
-      // ✅ Navigasi ke halaman history
-      navigate("/transaksihistory");
+      // ✅ Ambil ulang history (langsung dari offset 0)
+      dispatch(fetchHistory({ offset: 0, limit: 5 }));
+
+      navigate("/transaksihistory", { state: { refresh: true } });
     } catch (err) {
       setMessage("Pembayaran gagal. Coba lagi.", err);
     }

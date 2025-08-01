@@ -1,19 +1,30 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHistory } from "../redux/transaksi/transaksiHistorySlice";
+import {
+  fetchHistory,
+  resetHistory,
+} from "../redux/transaksi/transaksiHistorySlice";
 import NavbarPages from "../pages/NavbarPages";
+import { useLocation } from "react-router-dom";
 
 function TransaksiHistory() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { list, status, error, offset, limit, hasMore } = useSelector(
-    (state) => state.transaksiHistory // pastikan reducer di store namanya transaksiHistory
+    (state) => state.transaksiHistory
   );
 
+  // 👉 Tangani redirect dengan refresh
   useEffect(() => {
-    if (Array.isArray(list) && list.length === 0) {
+    const shouldRefresh = location.state?.refresh;
+
+    if (shouldRefresh) {
+      dispatch(resetHistory()); // reset state lama
+      dispatch(fetchHistory({ offset: 0, limit }));
+    } else if (list.length === 0) {
       dispatch(fetchHistory({ offset: 0, limit }));
     }
-  }, [dispatch, list.length, limit]);
+  }, [dispatch, location.state, list.length, limit]);
 
   const loadMore = () => {
     if (status !== "loading" && hasMore) {
@@ -21,17 +32,7 @@ function TransaksiHistory() {
     }
   };
 
-  if (!Array.isArray(list)) {
-    // Jika list bukan array (misal error persist), tampilkan info error
-    return (
-      <>
-        <NavbarPages />
-        <div className="max-w-5xl mx-auto p-4">
-          <p className="text-red-600">Data transaksi tidak valid.</p>
-        </div>
-      </>
-    );
-  }
+  // ... UI tetap sama
 
   return (
     <>
@@ -41,14 +42,17 @@ function TransaksiHistory() {
           Semua Transaksi
         </h2>
 
+        {/* Tampilkan error jika ada */}
         {status === "failed" && (
           <p className="text-red-600">Gagal memuat data: {error}</p>
         )}
 
+        {/* Tidak ada transaksi */}
         {list.length === 0 && status === "succeeded" && (
           <p>Tidak ada transaksi.</p>
         )}
 
+        {/* Daftar transaksi */}
         {list.map((item) => {
           const isTopup = item.transaction_type === "TOPUP";
           const sign = isTopup ? "+" : "-";
@@ -74,17 +78,20 @@ function TransaksiHistory() {
           );
         })}
 
+        {/* Status loading */}
         {status === "loading" && <p>Loading...</p>}
 
+        {/* Tampilkan tombol load more */}
         {hasMore && status !== "loading" && (
           <button
             onClick={loadMore}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
-            Show More
+            Tampilkan Lebih Banyak
           </button>
         )}
 
+        {/* Semua data telah dimuat */}
         {!hasMore && list.length > 0 && (
           <p className="mt-4 text-gray-500">Semua transaksi telah dimuat.</p>
         )}

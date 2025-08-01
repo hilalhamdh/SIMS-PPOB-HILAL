@@ -41,7 +41,7 @@ function ServiceList() {
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div className="mt-10 grid grid-cols-4 gap-4">
+    <div className="mt-10 grid grid-cols-12 gap-4">
       {services.map((service) => (
         <div
           key={service.service_code}

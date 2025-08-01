@@ -32,6 +32,7 @@ function TopUp() {
         `Top up sebesar Rp ${nominal.toLocaleString("id-ID")} berhasil.`
       );
       setAmount("");
+      navigate("/transaksihistory");
     } catch (error) {
       console.error("Top up gagal:", error);
       setMessage(`Top up gagal: ${error}`);
