@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { pay } from "../redux/transaksi/transaksiSlicee";
+import { pay } from "../redux/transaksi/transaksiSlice";
 import { kurangiSaldo } from "../redux/balance/balanceSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavbarPages from "../pages/NavbarPages";

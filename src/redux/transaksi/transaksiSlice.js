@@ -52,7 +52,7 @@ export const pay = createAsyncThunk('transaksi/pay', async ({ service_code }, { 
   }
 });
 
-const transaksiSlicee = createSlice({
+const transaksiSlice = createSlice({
   name: 'transaksi',
   initialState: {
     list: [],
@@ -82,4 +82,4 @@ const transaksiSlicee = createSlice({
 });
 
 
-export default transaksiSlicee.reducer;
+export default transaksiSlice.reducer;

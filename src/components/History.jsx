@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHistory } from "../redux/transaksi/transaksiSlicee";
+import { fetchHistory } from "../redux/transaksi/transaksiSlice";
 
 function History() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice";
 import profileReducer from "./profile/profileSlice";
 import balanceReducer from "./balance/balanceSlice";
-import transaksiReducer from "./transaksi/transaksiSlicee";
+import transaksiReducer from "./transaksi/transaksiSlice";
 import transaksiSlicer from "./transaksi/transaksiHistorySlice";
 
 

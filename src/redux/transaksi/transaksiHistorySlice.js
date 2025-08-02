@@ -1,48 +1,47 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-
 
 export const fetchHistory = createAsyncThunk(
   "transaksiHistory/fetchHistory",
   async ({ offset, limit }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/history?offset=${offset}&limit=${limit}`);
-      console.log("✅ API Response:", response.data); 
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        `https://take-home-test-api.nutech-integrasi.com/transaction/history?offset=${offset}&limit=${limit}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-      if (Array.isArray(response.data)) {
-        return response.data;
-      } else if (response.data && Array.isArray(response.data.data)) {
-        return response.data.data;
-      } else {
-        return [];
+      const data = await res.json();
+      console.log("✅ Fetch History response:", data);
+
+      if (!res.ok || data.status !== 0) {
+        return rejectWithValue(data.message || "Error fetching history");
       }
+
+      // ✅ Ambil data dari data.records
+      return Array.isArray(data.data?.records) ? data.data.records : [];
     } catch (error) {
-      console.error("❌ Fetch error:", error); // <-- DEBUG error
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
 
-const initialState = {
-  list: [],
-  status: "idle", 
-  offset: 0,
-  limit: 5,
-  hasMore: true,
-};
-
-const transaksiSlicerr = createSlice({
+const transaksiHistorySlice = createSlice({
   name: "transaksiHistory",
-  initialState,
+  initialState: {
+    list: [],
+    status: "idle",
+    error: null,
+    offset: 0,
+    limit: 5,
+    hasMore: true,
+  },
   reducers: {
-    resetHistory: (state) => {
-      state.list = [];
-      state.offset = 0;
-      state.hasMore = true;
-      state.status = "idle";
-      state.error = null;
-    },
+    // Tidak perlu resetHistory kalau tidak mau reset data
   },
   extraReducers: (builder) => {
     builder
@@ -59,9 +58,10 @@ const transaksiSlicerr = createSlice({
         }
 
         if (action.meta.arg.offset === 0) {
-          state.offset = 0;
+          // Load awal, ganti list
           state.list = action.payload;
         } else {
+          // Load more, tambah ke list
           state.list = [...state.list, ...action.payload];
         }
 
@@ -70,10 +70,9 @@ const transaksiSlicerr = createSlice({
       })
       .addCase(fetchHistory.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || "Terjadi kesalahan saat memuat data.";
+        state.error = action.payload;
       });
   },
 });
 
-export const { resetHistory } = transaksiSlicerr.actions;
-export default transaksiSlicerr.reducer;
+export default transaksiHistorySlice.reducer;
