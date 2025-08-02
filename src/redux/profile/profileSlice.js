@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Helper: ambil token dan siapkan header
 const getAuthHeader = () => {
   const token = localStorage.getItem('token');
   return {
@@ -12,7 +11,6 @@ const getAuthHeader = () => {
   };
 };
 
-// Fetch profile
 export const fetchProfile = createAsyncThunk(
   'profile/fetch',
   async (_, { rejectWithValue }) => {
@@ -31,7 +29,6 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
-// Update profile image
 export const updateProfileImage = createAsyncThunk(
   'profile/updateImage',
   async (formData, { rejectWithValue }) => {
@@ -57,13 +54,12 @@ export const updateProfileImage = createAsyncThunk(
   }
 );
 
-// Update profile data (name, email)
 export const updateProfile = createAsyncThunk(
   'profile/update',
   async (updatedData, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        'https://take-home-test-api.nutech-integrasi.com/profile',
+        'https://take-home-test-api.nutech-integrasi.com/profile/update',
         updatedData,
         getAuthHeader()
       );
@@ -76,7 +72,6 @@ export const updateProfile = createAsyncThunk(
     }
   }
 );
-
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -98,7 +93,6 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch profile
       .addCase(fetchProfile.pending, (state) => {
         state.status = 'loading';
         state.error = null;
@@ -112,7 +106,6 @@ const profileSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Update profile (first_name, last_name, email)
       .addCase(updateProfile.pending, (state) => {
         state.updateStatus = 'loading';
         state.updateError = null;
@@ -126,7 +119,6 @@ const profileSlice = createSlice({
         state.updateError = action.payload;
       })
 
-   
       .addCase(updateProfileImage.pending, (state) => {
         state.imageUploadStatus = 'loading';
         state.imageUploadError = null;
